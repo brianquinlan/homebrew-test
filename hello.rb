@@ -12,5 +12,6 @@ cask "hello" do
 end
 
 # brew install --cask https://raw.githubusercontent.com/brianquinlan/homebrew-test/main/hello.rb
+# brew install brianquinlan/homebrew-test/hello
 # binary "hello"
 # shasum -a 256 hello-0.0.1.zip
