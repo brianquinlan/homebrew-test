@@ -1,6 +1,6 @@
 cask "hello2" do
   version "1.0.2"
-  sha256 "c6d9845267c91d67b0b5f62d1f60e9d367b07ca91c309c402c1d2689227e96cd"
+  sha256 "18a8d7b4193f0abce18d813b5cc8d0a02e4be02cd947171ed9c83926f3427845"
 
   url "https://storage.googleapis.com/dart-publish-test/hello2-#{version}.zip",
       verified: "storage.googleapis.com/dart-publish-test/"
