@@ -1,8 +1,8 @@
 cask "hello" do
-  version "0.0.1"
-  sha256 "bc3ec57aa8c5c35bdbd8f10a1474f79aff277bf128069bf36da4eb9487c0a809"
+  version "1.0.1"
+  sha256 "cf4c5ee0ce891b5f5909279700ca7c3ded50a3473c8a2b7ffea30ea04d023f8f"
 
-  url "https://storage.googleapis.com/dart-publish-test/hello-#{version}.zip",
+  url "https://storage.googleapis.com/dart-publish-test/hello-#{1.0.1}.zip",
       verified: "storage.googleapis.com/dart-publish-test/"
   name "hello"
   desc "Turns your Trello cards into Pomodoro tasks"
@@ -10,7 +10,3 @@ cask "hello" do
 
   binary "hello"
 end
-
-# brew install --cask https://raw.githubusercontent.com/brianquinlan/homebrew-test/main/hello.rb
-# binary "hello"
-# shasum -a 256 hello-0.0.1.zip
