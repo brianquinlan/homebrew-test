@@ -4,12 +4,16 @@ import 'dart:io';
 import 'package:crypto/crypto.dart';
 import 'package:dart_frog/dart_frog.dart';
 import 'package:http/http.dart' as http;
+import 'package:path/path.dart' as path;
 import 'package:pubspec_parse/pubspec_parse.dart';
 
 const headers = {
   'Accept': 'application/vnd.github+json',
-  'Authorization':
-      'Bearer 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',
+};
+
+final headersAuth = {
+  'Accept': 'application/vnd.github+json',
+  'Authorization': 'Bearer ${Platform.environment['GITHUB_BEARER']}',
 };
 
 Future<Response> onRequest(RequestContext context) async {
@@ -18,10 +22,14 @@ Future<Response> onRequest(RequestContext context) async {
   final pubspec = Pubspec.parse(body['pubspec'] as String);
   final version = pubspec.version.toString();
   final exePath = body['exePath'] as String;
-  final zipPath = '$exePath-$version.zip';
   final name = pubspec.name;
+  final zipPath = '${path.join(path.dirname(exePath), name)}-$version.zip';
 
-  final zipProcess = await Process.start('zip', [zipPath, exePath]);
+  final zipProcess = await Process.start(
+    'zip',
+    [path.basename(zipPath), path.basename(exePath)],
+    workingDirectory: path.dirname(exePath),
+  );
   if (await zipProcess.exitCode != 0) {
     return Response(body: 'Zip failure');
   }
@@ -59,11 +67,11 @@ cask "$name" do
 
   url "https://storage.googleapis.com/dart-publish-test/$name-#{version}.zip",
       verified: "storage.googleapis.com/dart-publish-test/"
-  name "hello"
+  name "$name"
   desc "Turns your Trello cards into Pomodoro tasks"
   homepage "https://pomelloapp.com/"
 
-  binary "hello"
+  binary "${path.basename(exePath)}"
 end
 '''),
   );
@@ -81,12 +89,15 @@ end
       '/repos/brianquinlan/homebrew-test/contents/$name.rb',
     ),
     body: setbody,
-    headers: headers,
+    headers: headersAuth,
   );
-  if (setRequest.statusCode != 200) {
+  if (setRequest.statusCode < 200 || setRequest.statusCode >= 300) {
     return Response(body: '${setRequest.statusCode}: ${setRequest.body}');
   }
-  return Response(body: 'brew install --cask brianquinlan/homebrew-test/$name');
+  // https://raw.githubusercontent.com/brianquinlan/homebrew-test/main/dartcli1.rb
+  return Response(
+      body:
+          'brew install --cask https://raw.githubusercontent.com/brianquinlan/homebrew-test/main/$name.rb');
 }
 
 // gcloud auth login
