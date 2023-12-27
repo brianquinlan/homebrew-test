@@ -68,8 +68,8 @@ cask "$name" do
   url "https://storage.googleapis.com/dart-publish-test/$name-#{version}.zip",
       verified: "storage.googleapis.com/dart-publish-test/"
   name "$name"
-  desc "Turns your Trello cards into Pomodoro tasks"
-  homepage "https://pomelloapp.com/"
+  desc "${pubspec.description}"
+  homepage "${pubspec.homepage ?? pubspec.repository}"
 
   binary "${path.basename(exePath)}"
 end
