@@ -1,0 +1,12 @@
+cask "hello" do
+  version "1.0.0"
+  sha256 "df8feafeee6fa16b56aeb451a2dd324c39c8e4f2cee2538020cc09ddaf51cdcb"
+
+  url "https://storage.googleapis.com/dart-publish-test/hello-#{1.0.0}.zip",
+      verified: "storage.googleapis.com/dart-publish-test/"
+  name "hello"
+  desc "Turns your Trello cards into Pomodoro tasks"
+  homepage "https://pomelloapp.com/"
+
+  binary "hello"
+end
