@@ -1,0 +1,229 @@
+<html>
+
+<head>
+    <style>
+        body {
+            margin: 0;
+            font-family: "Google Sans Text", "Roboto", sans-serif;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212121;
+            text-align: left;
+            background-color: #fff;
+        }
+
+        .content {
+            padding: 32px;
+            padding-top: 40px;
+        }
+
+        h1,
+        .h1 {
+            font-family: "Google Sans Display", "Google Sans", "Roboto", sans-serif;
+            font-size: 48px;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        ul.tabs__top-bar {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        ul.tabs__top-bar li {
+            background: none;
+            color: #111;
+            display: inline-block;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+        ul.tabs__top-bar li.current {
+            background: #1967d2;
+            color: #fff;
+        }
+
+        .tabs__content {
+            display: none;
+            border: 2px solid #1967d2;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .tabs__content.current {
+            display: inherit;
+        }
+
+        .language-terminal .highlight {
+            background: #212121;
+            color: #64dd17;
+        }
+
+        pre {
+            background-color: #f8f9fa;
+            font-size: .875rem;
+            font-weight: 400;
+            padding: 1.875rem;
+            font-family: "Google Sans Mono", "Roboto Mono", Menlo, "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, Consolas, monospace;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <h1>Get {{ appname }}</h1>
+        <p>
+            A sample command-line application.
+        </p>
+        <ul class="tabs__top-bar">
+            <li class="tab-link" data-tab="tab-sdk-install-windows">Windows</li>
+            <li class="tab-link" data-tab="tab-sdk-install-linux">Linux</li>
+            <li class="tab-link current" data-tab="tab-sdk-install-mac">macOS</li>
+        </ul>
+        <div id="tab-sdk-install-windows" class="tabs__content">
+            <p>You can install the Dart SDK using <a href="https://chocolatey.org" class="external">Chocolatey.</a></p>
+
+            <aside class="alert alert-warning" role="alert">
+                <p><i class="material-icons" aria-hidden="true">error</i> <strong>Important:</strong>
+                    These commands require administrator rights.
+                    Here’s one way to open a Command Prompt window
+                    that has admin rights:</p>
+
+                <ol>
+                    <li>Press <kbd>Windows+R</kbd> to open the <strong>Run</strong> window.</li>
+                    <li>Type <code class="language-plaintext highlighter-rouge">cmd</code> into the box.</li>
+                    <li>Press <kbd>Ctrl+Shift+Enter</kbd>.</li>
+                </ol>
+            </aside>
+
+            <p>To install the Dart SDK:</p>
+
+            <div class="language-terminal highlighter-rouge">
+                <div class="highlight">
+                    <pre class="highlight"><code><span class="gp">C:\&gt;</span><span class="w"> </span>choco <span class="nb">install </span>dart-sdk
+          </code></pre>
+                </div>
+            </div>
+
+            <p>To upgrade the Dart SDK:</p>
+
+            <div class="language-terminal highlighter-rouge">
+                <div class="highlight">
+                    <pre class="highlight"><code><span class="gp">C:\&gt;</span><span class="w"> </span>choco upgrade dart-sdk
+          </code></pre>
+                </div>
+            </div>
+
+            <p>By default, the SDK is installed at <code
+                    class="language-plaintext highlighter-rouge">C:\tools\dart-sdk</code>.
+                You can change that location by setting
+                the <a
+                    href="https://stackoverflow.com/questions/19752533/how-do-i-set-chocolatey-to-install-applications-onto-another-drive/68314437#68314437"
+                    class="external"><code
+                        class="language-plaintext highlighter-rouge">ChocolateyToolsLocation</code></a>
+                environment variable
+                to your chosen installation directory.</p>
+
+            <p>If you can’t use the Dart SDK executables,
+                add the SDK location to your PATH:</p>
+
+            <ol>
+                <li>In the Windows search box, type <code class="language-plaintext highlighter-rouge">env</code>.</li>
+                <li>Click <strong>Edit the system environment variables</strong>.</li>
+                <li>Click <strong>Environment Variables…</strong>.</li>
+                <li>In the user variable section, select <strong>Path</strong> and click <strong>Edit…</strong>.</li>
+                <li>Click <strong>New</strong>, and enter the path to the <code
+                        class="language-plaintext highlighter-rouge">dart-sdk</code> directory.</li>
+                <li>In each window that you just opened,
+                    click <strong>Apply</strong> or <strong>OK</strong> to dismiss it and apply the path change.</li>
+            </ol>
+        </div>
+        <div id="tab-sdk-install-linux" class="tabs__content">
+            <p>If you’re using Debian/Ubuntu on AMD64 (64-bit Intel), you can choose one of the
+                following options, both of which can update the SDK automatically when new
+                versions are released.</p>
+
+            <ul>
+                <li><a href="#install-using-apt-get">Install using apt-get</a></li>
+                <li><a href="#install-a-debian-package">Install a Debian package</a></li>
+            </ul>
+
+            <h4 id="install-using-apt-get">Install using apt-get</h4>
+
+            <p>Perform the following <strong>one-time setup</strong>:</p>
+
+            <div class="language-terminal highlighter-rouge">
+                <div class="highlight">
+                    <pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt-get update
+      <span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>apt-transport-https
+      <span class="gp">$</span><span class="w"> </span>wget <span class="nt">-qO-</span> https://dl-ssl.google.com/linux/linux_signing_key.pub | <span class="nb">sudo </span>gpg <span class="nt">--dearmor</span> <span class="nt">-o</span> /usr/share/keyrings/dart.gpg
+      <span class="gp">$</span><span class="w"> </span><span class="nb">echo</span> <span class="s1">'deb [signed-by=/usr/share/keyrings/dart.gpg arch=amd64] https://storage.googleapis.com/download.dartlang.org/linux/debian stable main'</span> | <span class="nb">sudo tee</span> /etc/apt/sources.list.d/dart_stable.list
+      </code></pre>
+                </div>
+            </div>
+
+            <p>Then install the Dart SDK:</p>
+
+            <div class="language-terminal highlighter-rouge">
+                <div class="highlight">
+                    <pre class="highlight"><code><span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt-get update
+      <span class="gp">$</span><span class="w"> </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>dart
+      </code></pre>
+                </div>
+            </div>
+
+            <h4 id="install-a-debian-package">Install a Debian package</h4>
+
+            <p>Alternatively, download Dart SDK <a
+                    href="https://storage.googleapis.com/dart-archive/channels/stable/release/latest/linux_packages/dart_3.2.4-1_amd64.deb"
+                    class="debian-link-stable">as a Debian package</a>
+                in the <code class="language-plaintext highlighter-rouge">.deb</code> package format.</p>
+
+        </div>
+        <div id="tab-sdk-install-mac" class="tabs__content current">
+            <p><a href="https://brew.sh" class="external">Install Homebrew,</a>
+                and then run the following commands:</p>
+
+            <div class="language-terminal highlighter-rouge">
+                <div class="highlight">
+                    <pre class="highlight"><code>$ brew install --cask https://raw.githubusercontent.com/brianquinlan/homebrew-test/main/{{ appname }}.rb</code>
+      </code></pre>
+                </div>
+            </div>
+
+            <aside class="alert alert-warning" role="alert">
+                <p><i class="material-icons" aria-hidden="true">error</i> <strong>Important:</strong>
+                    Make sure the <strong>Homebrew <code class="language-plaintext highlighter-rouge">bin</code>
+                        directory
+                        is in your <code class="language-plaintext highlighter-rouge">PATH</code></strong>.
+                    Setting up the path correctly makes it easier to use Dart SDK commands
+                    such as <code class="language-plaintext highlighter-rouge">dart run</code> and <code
+                        class="language-plaintext highlighter-rouge">dart format</code>.
+                    For help configuring your path,
+                    consult the <a href="https://docs.brew.sh/FAQ" class="external">Homebrew FAQ.</a></p>
+            </aside>
+
+            <p>To upgrade when a new release of {{ appname }} is available:</p>
+
+            <div class="language-terminal highlighter-rouge">
+                <div class="highlight">
+                    <pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>brew upgrade {{ appname }}
+      </code></pre>
+                </div>
+            </div>
+            <p>To see which version of {{ appname }} you’ve installed:</p>
+
+            <div class="language-terminal highlighter-rouge">
+                <div class="highlight">
+                    <pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>brew info {{ appname }}
+      </code></pre>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>
